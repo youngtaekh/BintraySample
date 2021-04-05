@@ -1,0 +1,3 @@
+include ':bintraylibrary'
+include ':app'
+rootProject.name = "BintraySample"
