@@ -1,5 +1,46 @@
 plugins {
     id 'com.android.library'
+    id 'com.github.dcendents.android-maven'
+    id 'com.jfrog.bintray'
+}
+
+group = rootProject.ext.packageName
+version = rootProject.ext.libVersionName
+
+bintray {
+//    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+//    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    user = 'youngtaek'
+    key = '3050da481021b05a55fdc4167f52c21eb4e1f522'
+
+    configurations = ['archives'] // When uploading configuration files
+
+    publish = true // [Default: false] Whether version should be auto published after an upload
+
+    pkg {
+        repo = 'test' // Repository name (Created in the repository Bintray site)
+        name = project.name // module name
+        userOrg = user // An optional organization name when the repo belongs to one of the user's orgs
+        desc = 'Bintray sample library' // Optional
+        licenses = ['Apache-2.0']
+
+        vcsUrl = rootProject.ext.defaultRepoUrl
+        websiteUrl = rootProject.ext.defaultUrl
+        // issueTrackerUrl = '' // Optional
+
+        labels = ['aar', 'android', 'example'] // Optional
+        publicDownloadNumbers = true
+
+        githubRepo = 'youngtaekh/BintraySample' // Optional Github repository
+        githubReleaseNotesFile = 'CONTRIBUTING.md' // Optional Github readme file
+
+        version {
+            name = rootProject.ext.libVersionName // The name of your library project
+            desc = 'Gradle Bintray sample' // Optional - Version-specific description'
+            released  = new Date() // Optional - Date of the version release. 2 possible values: date in the format of 'yyyy-MM-dd'T'HH:mm:ss.SSSZZ' OR a java.util.Date instance
+            vcsTag = rootProject.ext.libVersionName
+        }
+    }
 }
 
 android {
@@ -10,7 +51,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName rootProject.ext.libVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
